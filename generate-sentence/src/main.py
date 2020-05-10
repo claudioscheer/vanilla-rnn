@@ -133,6 +133,6 @@ def sample(model, out_len, start="hey"):
     return "".join(chars)
 
 
-output = sample(model, 15, "good")
+output = sample(model, 15, "hey")
 print(output)
 # endregion
