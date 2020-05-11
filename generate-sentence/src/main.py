@@ -13,7 +13,7 @@ int2char = dict(enumerate(chars))
 char2int = {char: ind for ind, char in int2char.items()}
 
 # region Padding sentences.
-large_sentence_length = len(max(text, key=len))
+large_sentence_length = len(max(text, key=len))  # 14
 for i in range(len(text)):
     while len(text[i]) < large_sentence_length:
         text[i] += " "
@@ -36,7 +36,7 @@ for i in range(len(text)):
     target_sequences[i] = [char2int[character] for character in target_sequences[i]]
 
 # Length of different characters.
-unique_characters_size = len(char2int)
+unique_characters_size = len(char2int)  # 17
 # Size of the sequences. -1 because the last character of each sentence is removed.
 sequences_length = large_sentence_length - 1
 # Size of the batch to train the network.
@@ -67,6 +67,8 @@ input_sequences = one_hot_encode(
 # region Define the model.
 input_sequences = torch.from_numpy(input_sequences).cuda()
 target_sequences = torch.Tensor(target_sequences).cuda()
+print(input_sequences.shape)
+print(target_sequences.shape)
 
 model = RNNModel(
     input_size=unique_characters_size,
@@ -87,7 +89,7 @@ for epoch in range(1, n_epochs + 1):
     # Clears existing gradients from previous epoch.
     optimizer.zero_grad()
 
-    output, hidden = model(input_sequences)
+    output, hidden = model(input_sequences)  # (42, 17), (1, 3, 12)
     loss = criterion(output, target_sequences.view(-1).long())
 
     # Does backpropagation and calculates gradients.

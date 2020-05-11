@@ -26,7 +26,7 @@ class RNNModel(nn.Module):
         hidden = self.init_hidden(batch_size)  # (1, 3, 12)
 
         # Passing in the input and hidden state into the model and obtaining outputs.
-        out, hidden = self.rnn(x, hidden)  # (3, 14, 12), (1, 3, 12)
+        out, hidden = self.rnn(x, hidden)  # (1, 16, 21), (1, 3, 12)
 
         # Reshaping the outputs such that it can be fit into the fully connected layer.
         out = out.contiguous().view(-1, self.hidden_dim)  # (42, 12)
